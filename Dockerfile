@@ -1,12 +1,13 @@
 # build the project
 FROM maven:3 as jarfile
 WORKDIR workspace
-RUN mvn clean install
-
+COPY src /app/src
+COPY pom.xml /app
+RUN mvn -f /app/pom.xml clean package
 # the first stage of our build will extract the layers
 FROM eclipse-temurin:17 as builder
 WORKDIR workspace
-COPY --from=jarfile /workspace/target/memo-0.0.1.jar application.jar
+COPY --from=jarfile /workspace/app/target/memo-0.0.1.jar application.jar
 RUN java -Djarmode=layertools -jar application.jar extract
 
 # the second stage of our build will copy the extracted layers
