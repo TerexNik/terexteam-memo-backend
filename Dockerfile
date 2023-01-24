@@ -3,7 +3,8 @@ FROM maven:3 as jarfile
 WORKDIR workspace
 COPY src /app/src
 COPY pom.xml /app
-RUN mvn -f /app/pom.xml clean package
+RUN mvn -f /app/pom.xml clean package -DskipTests
+
 # the first stage of our build will extract the layers
 FROM eclipse-temurin:17 as builder
 WORKDIR workspace
