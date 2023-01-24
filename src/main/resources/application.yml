@@ -1,0 +1,17 @@
+
+spring:
+  application:
+    name: Memo
+  security:
+    user:
+      name: memo_admin
+  datasource:
+    host: localhost
+    port: 5432
+    database: memo
+    username: postgres
+    password: postgres
+    url: jdbc:postgresql://${spring.datasource.host}:${spring.datasource.port}/${spring.datasource.database}?autoReconnect=true
+    driver-class-name: org.postgresql.Driver
+  liquibase:
+    change-log: /db/changelog/changelog-master.xml
