@@ -17,4 +17,14 @@ class MemoService(
         val entity = repository.save(memoMapper.toEntity(dto))
         return memoMapper.toDTO(entity)
     }
+
+    fun getAll(): List<MemoDTO> {
+        return repository.findAll().map { memoMapper.toDTO(it) }
+    }
+
+    fun updateMemo(dto: MemoDTO): MemoDTO? {
+        val entity = memoMapper.toEntity(dto)
+        repository.save(entity)
+        return memoMapper.toDTO(entity)
+    }
 }
